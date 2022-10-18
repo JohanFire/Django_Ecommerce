@@ -69,3 +69,12 @@ contains all urls of the website
 ## MVT Pattern in Django
 
 Django uses the MVT Pattern = Model > View > Template
+
+# Creating Home Page of eCommerce
+
+lets copy the html template and create ecommerce > static folder, then copy the 4 folders inside static
+let's do the changes in settings.py and finally execute:
+
+```bash
+    python manage.py collectstatic
+```
