@@ -27,3 +27,45 @@ Control + C or
 ```bash
     deactivate
 ```
+
+# Django
+
+## Install Django
+
+Of course inside virtual env
+
+```bash
+    pip3 install django
+```
+
+## Create new Django project
+
+django-admin startproject NAME_APP [actual_directory]
+
+```bash
+    django-admin startproject ecommerce .
+```
+
+## Run server
+
+```bash
+    python manage.py runserver
+```
+
+## About Django app generated files by default
+
+init.py
+default file that will start in any module
+
+asgi.py & wsgi.py
+config to the door of django, it administrate the async door for the server
+
+settings.py
+here contains or properties and settings the app need to start
+
+urls.py
+contains all urls of the website
+
+## MVT Pattern in Django
+
+Django uses the MVT Pattern = Model > View > Template
