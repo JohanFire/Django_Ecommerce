@@ -249,3 +249,6 @@ now we can run the server
 these are some changes in account > [admin.py](./ecommerce_django/accounts/admin.py)
 so we can set password as not editable.
 and some changes in table visualization
+
+# Download SQLite Studio
+go to [https://sqlitestudio.pl/](https://sqlitestudio.pl/) and install the download it recommends to you.
