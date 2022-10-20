@@ -128,3 +128,119 @@ now the table in Django has been generated
 ---
 # Create superuser in Django
 `winpty python manage.py createsuperuser`
+___
+# Create Users App 'account' model in Django
+## Why exactly?
+by default, Django uses the username to join to the Django admin dashboard, so what I'm doing here is reestructuring this so we can login not only with username, so now can login with username and email. 
+
+**Create this new app just as we did before with 'Category'.**
+**BUT** there are some changes in accounts > [models.py](./ecommerce_django/accounts/models.py)
+    ```python
+        from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+
+        # Create your models here.
+        class MyAccountManager(BaseUserManager):
+            def create_user(self, first_name, last_name, username, email, password=None):
+                if not email:
+                    raise ValueError("User must have an email! -.-")
+                if not username:
+                    raise ValueError("User must have an username! -.-")
+
+                user = self.model(
+                    email = self.normalize_email(email),
+                    username = username, 
+                    first_name = first_name,
+                    last_name = last_name,
+
+                )
+                user.set_password(password)
+                user.save(using=self._db)
+                return user
+
+            def create_superuser(self, first_name, last_name, username, email, password):
+                user = self.create_user(
+                    email = self.normalize_email(email),
+                    username= username,
+                    password= password,
+                    first_name= first_name,
+                    last_name= last_name,
+                )
+                user.is_active = True
+                user.is_superadmin = True
+                user.is_admin = True
+                user.is_staff = True
+                user.save(using=self._db)
+                return user
+
+        class Accounts(AbstractBaseUser):
+            first_name = models.CharField(max_length=50)
+            last_name = models.CharField(max_length=50)
+            username = models.CharField(max_length=50, unique=True)
+            email = models.CharField(max_length=100, unique=True)
+            phone_number = models.CharField(max_length=100)
+
+            # Django attributes
+            # that need Django by default, if not have them, will show errors
+            date_joined = models.DateTimeField(auto_now_add=True)
+            last_login = models.DateTimeField(auto_now_add=True)
+            is_active = models.BooleanField(default=False)
+            is_superadmin = models.BooleanField(default=False)
+            is_admin = models.BooleanField(default=False)
+            is_staff = models.BooleanField(default=False)
+
+            USERNAME_FIELD = 'email' # use the email as necessary field for login
+            REQUIRED_FIELDS= ["username", "first_name", "last_name"]
+
+             # so we can use create users just as I specified
+            objects = MyAccountManager()
+
+
+            def __str__(self):
+                return self.email + ": " + self.first_name + " " + self.last_name
+
+            def has_admin_permissions(self, perm, obj=None):
+                return self.is_admin
+
+            def has_module_permissions(self, add_label):
+                return True
+    ```
+this is what it needs.
+
+2. Now have to go to ecommerce > [settings.py](./ecommerce_django/ecommerce/settings.py)
+```python
+    WSGI_APPLICATION = 'ecommerce.wsgi.application'
+    # after this line, write: 
+
+    AUTH_USER_MODEL = "accounts.Account"
+``` 
+so we are specifying to Django that the user structure will be the one I created
+
+3. Register the "account" class in Django
+go to accounts / [admin.py](./ecommerce_django/accounts/admin.py)
+    ```python
+        from .models import Account
+
+        # Register your models here.
+        admin.site.register(Account)
+    ```
+
+## New Migration ?
+we are restructuring Django, so we can't just do makemigrations & migrate, we have to do something first.
+**WE HAVE TO DELETE:**
+1. delete [db.sqlite3](./ecommerce_django/db.sqlite3)
+    so we delete the user information we have, we have to delete it because we reestructured the user info
+2. go to category / [migrations](./ecommerce_django/category/migrations/)
+    and delete all migrations files we have done before, like:
+    * [0001_initial.py](./ecommerce_django/category/migrations/0001_initial.py)
+    * [0002_alter_category_options.py](./ecommerce_django/category/migrations/0002_alter_category_options.py)
+
+## Run server
+we have to run the server now, so we can regenerate the [db.sqlite3](./ecommerce_django/db.sqlite3) file.
+Will show errors, but is ok, we do this only to regenerate the db.
+
+## Do new migrations
+`python manage.py makemigrations`, then `python manage.py migrate`
+now we can run the server
+
+## Create superuser one more time, bc we deleted it
+`winpty python manage.py createsuperuser`
