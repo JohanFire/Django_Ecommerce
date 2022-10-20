@@ -13,4 +13,4 @@ class Category(models.Model):
         verbose_name_plural = "categories" # when plural
 
     def __str__(self) -> str:
-        return self.category_image + ": " + self.slug
+        return self.category_name + ": " + self.slug
