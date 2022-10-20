@@ -244,3 +244,8 @@ now we can run the server
 
 ## Create superuser one more time, bc we deleted it
 `winpty python manage.py createsuperuser`
+
+# Changes in Account table in Django admin dashboard
+these are some changes in account > [admin.py](./ecommerce_django/accounts/admin.py)
+so we can set password as not editable.
+and some changes in table visualization
