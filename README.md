@@ -262,3 +262,27 @@ go to [https://sqlitestudio.pl/](https://sqlitestudio.pl/) and install the downl
 4. Now to register the new Store entity in Django, have to go to store > admin.py
 5. make migrations: `python manage.py makemigrations` so can create the db table of
 6. `python manage.py migrate` so now execute the migration file
+
+## Show Categories in dropbox & filtering products
+1. create new file "context_processor.py" in category app
+2. go to [settings.py](./ecommerce_django/ecommerce/settings.py) and go to "TEMPLATES = []"
+and add the menu links. here what we are doing is making public this "menu_links" to any template. 
+So any template will have access to it.
+    ```python
+        TEMPLATES = [
+            {
+                'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                'DIRS': ["templates"],
+                'APP_DIRS': True,
+                'OPTIONS': {
+                    'context_processors': [
+                        'django.template.context_processors.debug',
+                        'django.template.context_processors.request',
+                        'djancgo.contrib.auth.context_processors.auth',
+                        'django.contrib.messages.context_processors.messages',
+                        "category.context_processors.menu_links",
+                    ],
+                },
+            },
+        ]
+    ```
