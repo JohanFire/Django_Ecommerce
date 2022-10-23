@@ -288,3 +288,6 @@ So any template will have access to it.
     ```
 3. modifyin html
 4. create "get_url" function in [models.py](./ecommerce_django/category/models.py)
+
+# Create 'Carts'
+`python manage.py startapp carts`
