@@ -259,3 +259,6 @@ go to [https://sqlitestudio.pl/](https://sqlitestudio.pl/) and install the downl
 1. `python manage.py startapp store`
 2. add the app to INSTALLED APPS
 3. create the Store model in store > models.py
+4. Now to register the new Store entity in Django, have to go to store > admin.py
+5. make migrations: `python manage.py makemigrations` so can create the db table of
+6. `python manage.py migrate` so now execute the migration file
