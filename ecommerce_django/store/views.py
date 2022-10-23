@@ -25,4 +25,14 @@ def store(request, category_slug=None):
     return render(request, "store/store.html", context)
 
 def product_detail(request, category_slug, product_slug):
-    return render(request, "store/product_detail.html")
+    try:
+        # validate if the slug of the category exist
+        single_product = Product.objects.get(category__slug=category_slug, slug=product_slug) # "...__..." double line means to get the value of the field
+    except Exception as e:
+        raise e
+
+    context = {
+        "single_product": single_product
+    }
+
+    return render(request, "store/product_detail.html", context)
