@@ -252,3 +252,9 @@ and some changes in table visualization
 
 # Download SQLite Studio
 go to [https://sqlitestudio.pl/](https://sqlitestudio.pl/) and install the download it recommends to you.
+
+# Products Module
+## Create Products app and setting it up
+**just as we did before with "Category" app, in line 85**
+1. `python manage.py startapp store`
+2. add the app to INSTALLED APPS
