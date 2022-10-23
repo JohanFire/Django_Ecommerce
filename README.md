@@ -258,3 +258,4 @@ go to [https://sqlitestudio.pl/](https://sqlitestudio.pl/) and install the downl
 **just as we did before with "Category" app, in line 85**
 1. `python manage.py startapp store`
 2. add the app to INSTALLED APPS
+3. create the Store model in store > models.py
