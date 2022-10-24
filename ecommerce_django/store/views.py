@@ -19,9 +19,11 @@ def store(request, category_slug=None):
         product_count = products.count()
     else:
         products = Product.objects.all().filter(is_available=True)
+        
         paginator = Paginator(products, 6) # (groupOrCollectionToPaginate, groupsOfHowMany)
         page = request.GET.get("page") # know what page the client is accesing
         paged_products = paginator.get_page(page)
+
         product_count = products.count()
         
     context = {
