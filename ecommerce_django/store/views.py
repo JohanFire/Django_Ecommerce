@@ -16,7 +16,7 @@ def store(request, category_slug=None):
     if category_slug != None:
         # if don't get the object with parameters defined, will show 404
         categories = get_object_or_404(Category, slug=category_slug)
-        products = Product.objects.filter(category=categories, is_available=True)
+        products = Product.objects.filter(category=categories, is_available=True).order_by("id")
 
         paginator = Paginator(products, 6)
         page = request.GET.get("page")
