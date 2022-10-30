@@ -22,3 +22,17 @@ class Product(models.Model):
 
     def __str__(self) -> str:
         return self.product_name
+
+variation_category_choice = (
+    ("color", "color"),
+    ("talla", "talla"),
+)
+class Variation(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE) # when a products get deleted, will also delete the variation
+    variation_category = models.CharField(max_length=100, choices = variation_category_choice)
+    variation_value = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+    created_date = models.DateTimeField(auto_now = True)
+
+    def __unicode__(self):
+        return self.product # product is not a str, it's an object, that why defining an unicode
