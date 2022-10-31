@@ -21,7 +21,10 @@
         </aside>
         <main class="col-md-6 border-left">
 
-    <form action="{% url 'add_cart' single_product.id %}" method="GET">
+    <form action="{% url 'add_cart' single_product.id %}" method="post">
+        <!-- to make available this form values be captured by Django's server -->
+        {% csrf_token %}
+
         <article class="content-body">
             <h2 class="title">{{ single_product.product_name }}</h2>
             
@@ -44,7 +47,7 @@
                         <select name="color" class="form-control" required>
                             <option value="" disabled selected>Seleccione</option>
                             {% for i in single_product.variation_set.colors %}
-                                <option value="{{ i.variation.value | lower }}}">{{ i.variation_value | capfirst }}</option>
+                            <option value="{{ i.variation_value | lower }}">{{ i.variation_value | capfirst }}</option>
                             {% endfor %}
 
                         </select>
@@ -56,7 +59,7 @@
                         <select name="talla" class="form-control" required>
                             <option value="" disabled selected>Seleccione</option>
                             {% for i in single_product.variation_set.tallas %}
-                                <option value="{{ i.variation.value | lower }}}">{{ i.variation_value | capfirst }}</option>
+                            <option value="{{ i.variation_value | lower }}">{{ i.variation_value | capfirst }}</option>
                             {% endfor %}
 
                         </select>
