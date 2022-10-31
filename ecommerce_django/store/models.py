@@ -43,5 +43,5 @@ class Variation(models.Model):
 
     objects = VariationManager() # instance variationManager functions
 
-    def __unicode__(self):
-        return self.product # product is not a str, it's an object, that why defining an unicode
+    def __str__(self):
+        return self.variation_category + ": " + self.variation_value
