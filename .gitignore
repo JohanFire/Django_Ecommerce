@@ -156,3 +156,4 @@ cython_debug/
 #.idea/
 ecommerce_django/db.sqlite3
 ecommerce_django/db.sqlite3
+ecommerce_django/db.sqlite3
